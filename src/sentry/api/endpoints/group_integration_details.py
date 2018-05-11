@@ -31,8 +31,7 @@ class GroupIntegrationDetails(GroupEndpoint):
         except OrganizationIntegration.DoesNotExist:
             return Response(status=404)
 
-        provider = integration.get_provider()
-        if IntegrationFeatures.ISSUE_SYNC not in provider.features:
+        if not integration.has_feature(IntegrationFeatures.ISSUE_SYNC):
             return Response(
                 {'detail': 'This feature is not supported for this integration.'}, status=400)
 
@@ -58,8 +57,7 @@ class GroupIntegrationDetails(GroupEndpoint):
         except OrganizationIntegration.DoesNotExist:
             return Response(status=404)
 
-        provider = integration.get_provider()
-        if IntegrationFeatures.ISSUE_SYNC not in provider.features:
+        if not integration.has_feature(IntegrationFeatures.ISSUE_SYNC):
             return Response(
                 {'detail': 'This feature is not supported for this integration.'}, status=400)
 
